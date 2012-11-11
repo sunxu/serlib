@@ -1,0 +1,115 @@
+<#include "cp_header.html">
+<form action="${stack.findString('com.opensymphony.xwork2.ActionContext.name')}.do" target="_self" method="post" onSubmit="return CheckForm();">
+	<input type="hidden" name="jar.id" value="${jar.id?default("")}"/>
+	<input type="hidden" name="jar.status" value="true"/>
+	<input type="hidden" name="jar.addtime" value="${jar.addtime?default("")}"/>
+	<input type="hidden" name="jar.deltime" value="${jar.deltime?default("")}"/>
+	<input type="hidden" name="jar.project" value="${jar.project?default("")}"/>
+	<input type="hidden" name="jar.name" value="${jar.name?default("")}"/>
+	<input type="hidden" name="jar.size" value="${jar.size?default("")}"/>
+	<input type="hidden" name="jar.hash" value="${jar.hash?default("")}"/>
+	<input type="hidden" name="jar.buildtime" value="${jar.buildtime?default("")}"/>
+    
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            类库名称：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                        	${jar.name?default("")}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="right" class="left_txt2">
+                            类库大小：
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td height="30">
+                            ${jar.size?default("")}K
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            MD5值：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                            ${jar.hash?default("")}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="right" class="left_txt2">
+                            创建时间：
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td height="30">
+                            ${datetime(jar.buildtime)}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            所属项目：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                            <select name="jar.projectId" onchange="changeP();">
+                                <#list projects as project>
+                                    <option value="${project.id}">${project.name}</option>
+                                </#list>
+                            </select>
+                        </td>
+                    </tr>
+				</table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="60%" height="30" align="right">&nbsp;</td>
+                        <td width="40%" height="30"><input type="submit" value="提交" onClick="return checkF();" /></td>
+                    </tr>
+                </table>                
+			</td>
+		</tr>
+	</table>
+</form>
+
+
+<script type="text/javascript">
+	var projectId = document.getElementsByName("jar.projectId").item(0).value;
+	document.getElementsByName("jar.projectId").item(0).value = ${jar.projectId?default("0")};
+	if(document.getElementsByName("jar.projectId").item(0).value == 0)
+		document.getElementsByName("jar.projectId").item(0).value = projectId;
+		
+	function changeP(){
+		var projectId = document.getElementsByName("jar.projectId").item(0).value;
+		var project = jQuery("option[value="+projectId+"]").html();
+		document.getElementsByName("jar.project").item(0).value = project;
+	}
+	
+	function CheckForm(){
+		changeP();
+		var project = document.getElementsByName("jar.project").item(0).value;
+		if(project < 0){
+			parent.Dialog.alert("请先添加项目");
+			return false;
+		}
+	}
+</script>
+
+<#include "cp_footer.html">
+

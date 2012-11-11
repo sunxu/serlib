@@ -1,0 +1,70 @@
+<#include "cp_header.html">
+<form action="${stack.findString('com.opensymphony.xwork2.ActionContext.name')}.do" target="_self" method="post" onSubmit="return CheckForm();">
+	<input type="hidden" name="license.id" value="${license.id?default("")}"/>
+	<input type="hidden" name="license.addtime" value="${license.addtime?default("")}"/>
+	<input type="hidden" name="license.deltime" value="${license.deltime?default("")}"/>
+	<input type="hidden" name="license.status" value="true"/>
+    
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            协议名称：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                        	<input type="text" name="license.title" value="${license.title?default("")}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="right" class="left_txt2">
+                            协议链接：
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td height="30">
+                           <input type="text" name="license.url" value="${license.url?default("")}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            协议内容：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                            <textarea name="license.message" style="width:500px; height:100px;">${license.message?default("")}</textarea>
+                        </td>
+                    </tr>
+				</table>
+                <br>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="60%" height="30" align="right">&nbsp;</td>
+                        <td width="40%" height="30"><input type="submit" value="提交"/></td>
+                    </tr>
+                </table> 
+			</td>
+		</tr>
+	</table>
+</form>
+<script language=JavaScript>
+	function CheckForm(){
+		var title = document.getElementsByName("license.title").item(0).value;
+		var message = document.getElementsByName("license.message").item(0).value;
+		var url = document.getElementsByName("license.url").item(0).value;
+		if(title == "" || message == "" || url == ""){
+			parent.Dialog.alert("请将表单填写完整");
+			return false;
+		}
+	}
+</script>
+<#include "cp_footer.html">

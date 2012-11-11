@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+		
+	<bean id="adminAction" class="com.serlib.action.admin.AdminAct" scope="prototype">
+		<property name="adminService">
+			<ref bean="adminService"/>
+		</property>
+	</bean>
+
+	<bean id="licenseAction" class="com.serlib.action.license.LicenseAct" scope="prototype">
+		<property name="licenseService">
+			<ref bean="licenseService"/>
+		</property>
+		<property name="projectService">
+			<ref bean="projectService"/>
+		</property>
+	</bean>
+	
+	<bean id="projectAction" class="com.serlib.action.project.ProjectAct" scope="prototype">
+		<property name="projectService">
+			<ref bean="projectService"/>
+		</property>
+		<property name="licenseService">
+			<ref bean="licenseService"/>
+		</property>
+		<property name="jarService">
+			<ref bean="jarService"/>
+		</property>
+	</bean>
+
+	<bean id="jarAction" class="com.serlib.action.jar.JarAct" scope="prototype">
+		<property name="jarService">
+			<ref bean="jarService"/>
+		</property>
+		<property name="projectService">
+			<ref bean="projectService"/>
+		</property>
+	</bean>
+
+	<bean id="jarAnalyzeAction" class="com.serlib.action.jar.JarAnalyzeAct" scope="prototype">
+		<property name="jarService">
+			<ref bean="jarService"/>
+		</property>
+		<property name="solrService">
+			<ref bean="solrService"/>
+		</property>
+		<property name="projectService">
+			<ref bean="projectService"/>
+		</property>
+	</bean>
+	
+	<bean id="searchAction" class="com.serlib.action.search.SearchAct" scope="prototype">
+		<property name="solrService">
+			<ref bean="solrService"/>
+		</property>
+	</bean>
+	
+	<bean id="null" class="com.serlib.common.NullAct" scope="singleton"></bean>
+</beans>

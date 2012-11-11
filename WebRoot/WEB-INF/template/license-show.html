@@ -1,0 +1,35 @@
+<#include "header.html">
+<div class="mainstuff">
+	<div class="left">	
+        <div class="post"> 
+        
+          <h2 class="posttop">
+            <a title="${license.title?default("")}" href="javascript:void();">${license.title?default("")}</a>
+          </h2>
+          <p class="meta"><a href="${license.url?default("")}">${license.url?default("")}</a>
+          
+        
+          <div class="clearit"></div>
+          
+          <div class="tabbed"> <!-- tabbed-->
+              <div id="respond"> <!-- respond -->
+                <h5>协议内容</h5>
+                <span class="headend"></span>
+                <div class="replycontent" id="class_list">
+        		${license.message?default("")}
+                </div>
+                <span class="tail"></span><span class="tailend"></span>
+              </div>      
+          </div>
+          
+        </div>
+
+    </div>
+    
+    <div class="right">
+    
+    </div>
+</div>
+<script type="text/javascript" >
+</script>
+<#include "footer.html">

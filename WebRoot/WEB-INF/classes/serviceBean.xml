@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="adminService" class="com.serlib.service.impl.AdminServiceImpl">
+		<property name="adminDao">
+			<ref bean="adminDao"/>
+		</property>
+	</bean>
+
+	<bean id="licenseService" class="com.serlib.service.impl.LicenseServiceImpl">
+		<property name="licenseDao">
+			<ref bean="licenseDao"/>
+		</property>
+		<property name="projectDao">
+			<ref bean="projectDao"/>
+		</property>
+	</bean>
+
+	<bean id="projectService" class="com.serlib.service.impl.ProjectServiceImpl">
+		<property name="projectDao">
+			<ref bean="projectDao"/>
+		</property>
+		<property name="jarDao">
+			<ref bean="jarDao"/>
+		</property>
+	</bean>
+
+	<bean id="jarService" class="com.serlib.service.impl.JarServiceImpl">
+		<property name="jarDao">
+			<ref bean="jarDao"/>
+		</property>
+	</bean>
+
+
+	<bean id="solrService" class="com.serlib.solr.service.SolrService">
+		<property name="solrServer">
+			<ref bean="solrServer"/>
+		</property>
+	</bean>
+	
+</beans>

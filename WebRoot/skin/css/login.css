@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin: 0px;
+	padding:0px;
+	background-color: #1D3647;
+	overflow-y:scroll;
+}
+.login_top_bg {
+	background: url(../images/login-top-bg.gif) repeat-x bottom;
+}
+.login-buttom-bg {
+	background-image: url(../images/login-buttom-bg.gif);
+	background-repeat: repeat-x;
+}
+.login-buttom-txt {
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	font-size: 10px;
+	color: #ABCAD3;
+	text-decoration: none;
+	line-height: 20px;
+}
+.left_txt {
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	font-size: 12px;
+	line-height: 25px;
+	overflow:hidden;
+	color: #666666;
+}
+.login_bg {
+	background-image: url(../images/login_bg.jpg);
+	background-repeat: repeat-x;
+}
+.login_bg2 {
+	background-image: url(../images/login-content-bg.png);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+.login_txt_bt {
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	font-size: 14px;
+	line-height: 25px;
+	color: #666666;
+	font-weight: bold;
+}
+.login_txt {
+	font-family: Arial, Helvetica, sans-serif, "宋体";
+	font-size: 12px;
+	line-height: 25px;
+	color: #333333;
+}

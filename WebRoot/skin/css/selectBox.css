@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+.CRselectBox {
+	background:#f4f4f4 url(../images/select_box_off.gif) no-repeat right center;
+	border-style:solid;
+	border-width:1px;
+	border-color:#7c7c7c;
+	cursor:pointer;
+	display:block;
+	margin-top:2px;
+	padding-left:4px;
+	padding-right:1px;
+	width: 80px; 
+	height: 27px;
+	line-height:28px;
+}
+.CRselectBoxHover {
+	background:#fff0d4 url(../images/select_box_on.gif) no-repeat right center;
+}
+.CRselectBox a.CRselectValue {
+	display:block;
+	margin-left:2px;
+	white-space:nowrap;
+	color:#666666;	
+	overflow:hidden;
+	FONT-FAMILY: '微软雅黑'; 
+	BORDER-RIGHT-STYLE: none;
+	line-height:28px; 
+	FONT-SIZE: 14px
+}
+.CRselectBox a:hover.CRselectValue{color:#b96821;}
+.CRselectBoxOptions {
+	background:#FFFFFF;
+	border:1px solid #999;
+	margin-left:-5px;
+	list-style:none;
+	overflow-y:auto;
+	z-index:1000;
+	position: absolute;
+	width:85px;
+	height:86px;
+	display:none;
+	overflow:auto;
+}
+.CRselectBoxOptions a{
+	color:#000;
+	display:block;
+	height:28px;
+	line-height:28px;
+	font-size:14px;
+	background:#fff;	
+	overflow:hidden;
+	white-space:nowrap;
+}
+.CRselectBoxOptions a:hover{
+	background:#fff0d4;color:#b96821;
+}
+.CRselectBoxOptions a.selected{
+	background:#fff0d4;color:#b96821;
+}
+.CRselectBoxItem {
+	margin-left:8px;
+}
+/* 解决 firefox 点击放大出现虚线框，从而导致滚动条的问题  */
+.CRselectBox a { 
+	outline: none; 
+	text-decoration:none;
+}
+.CRselectBox a:focus { 
+	outline: none; 
+	text-decoration:none;
+} 

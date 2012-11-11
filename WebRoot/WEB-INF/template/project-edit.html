@@ -1,0 +1,120 @@
+<#include "cp_header.html">
+<form action="${stack.findString('com.opensymphony.xwork2.ActionContext.name')}.do" target="_self" method="post" onSubmit="return CheckForm();">
+	<input type="hidden" name="project.id" value="${project.id?default("")}"/>
+	<input type="hidden" name="project.status" value="true"/>
+	<input type="hidden" name="project.license" value="${project.license?default("")}"/>
+	<input type="hidden" name="project.addtime" value="${project.addtime?default("")}"/>
+	<input type="hidden" name="project.deltime" value="${project.deltime?default("")}"/>
+    
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            项目名称：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                        	<input type="text" name="project.name" value="${project.name?default("")}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="right" class="left_txt2">
+                            项目主页：
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td height="30">
+                           <input type="text" name="project.home" value="${project.home?default("")}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            所属公司：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                        	<input type="text" name="project.company" value="${project.company?default("")}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="right" class="left_txt2">
+                            所用协议：
+                        </td>
+                        <td>&nbsp;
+                            
+                        </td>
+                        <td height="30">
+                            <select name="project.licenseId" onchange="changeL();" >
+                                <#list licenses as license>
+                                    <option value="${license.id}">${license.title}</option>
+                                </#list>
+                             </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            项目简介：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" bgcolor="#f2f2f2">
+                        	<textarea name="project.detail" style="width:500px; height:100px;">
+${project.detail?default("")}</textarea>
+                        </td>
+                    </tr>
+				</table>
+                <br>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="60%" height="30" align="right">&nbsp;</td>
+                        <td width="40%" height="30"><input type="submit" value="提交"/></td>
+                    </tr>
+                </table> 
+			</td>
+		</tr>
+	</table>
+</form>
+
+<script type="text/javascript">
+	var licenseid = document.getElementsByName("project.licenseId").item(0).value;
+	document.getElementsByName("project.licenseId").item(0).value = ${project.licenseId?default("0")};
+	if(document.getElementsByName("project.licenseId").item(0).value == 0)
+		document.getElementsByName("project.licenseId").item(0).value = licenseid;
+		
+	function changeL(){
+		var licenseid = document.getElementsByName("project.licenseId").item(0).value;
+		var license = jQuery("option[value="+licenseid+"]").html();
+		document.getElementsByName("project.license").item(0).value = license;
+	}
+	
+	function CheckForm(){
+		changeL();
+		var license = document.getElementsByName("project.license").item(0).value;
+		if(license < 0){
+			parent.Dialog.alert("请先添加协议");
+			return false;
+		}
+
+		var name = document.getElementsByName("project.name").item(0).value;
+		var home_ = document.getElementsByName("project.home").item(0).value;
+		var company = document.getElementsByName("project.company").item(0).value;
+		var detail = document.getElementsByName("project.detail").item(0).value;
+
+		if(name == "" || home_ == "" || company == "" || detail == ""){
+			parent.Dialog.alert("请将表单填写完整");
+			return false;
+		}
+	}
+</script>
+<#include "cp_footer.html">

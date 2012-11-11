@@ -1,0 +1,21 @@
+<#include "cp_header.html">
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                    	<td>
+                        <center><h1>${message.title}</h1></center>
+                        <div align="center">${message.info?default("")}</div>
+                        <div align="right">
+                            <#list message.urls as url>
+                                <a href="${url.href}" target="${url.target}" title="${url.title}">${url.title}</a>
+                            </#list>
+                        </div>
+                        </td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>                        
+<#include "cp_footer.html">

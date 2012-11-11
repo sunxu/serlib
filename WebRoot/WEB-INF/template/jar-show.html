@@ -1,0 +1,117 @@
+<#include "header.html">
+<div class="mainstuff">
+	<div class="left">	
+        <div class="post"> 
+        
+          <h2 class="posttop">
+            <a title="${jar.name?default("")}" href="javascript:void();">${jar.name?default("")}</a>
+          </h2>
+          
+          <div class="showinfo">
+              <span class="texttop"></span><span class="texttopend"></span>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content">
+                      <tr>
+                          <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                              class="left_txt2">
+                              类库名称：
+                          </td>
+                          <td width="75%" height="30" bgcolor="#f2f2f2" class="left_txt2">
+                              ${jar.name?default("")}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td height="30" align="right" class="left_txt2">
+                              类库大小：
+                          </td>
+                          <td height="30">
+                              ${jar.size?default("")}K
+                          </td>
+                      </tr>
+                      <tr>
+                          <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                              class="left_txt2">
+                              MD5值：
+                          </td>
+                          <td width="75%" height="30" bgcolor="#f2f2f2" class="left_txt2">
+                              ${jar.hash?default("")}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td height="30" align="right" class="left_txt2">
+                              创建时间：
+                          </td>
+                          <td height="30">
+                              ${datetime(jar.buildtime)}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                              class="left_txt2">
+                              所属项目：
+                          </td>
+                          <td width="75%" height="30" bgcolor="#f2f2f2" class="left_txt2">
+                              <a href="project-show.do?id=${jar.projectId?default("")}">${jar.project?default("")}</a>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td height="30" align="right" class="left_txt2">
+                              下载地址：
+                          </td>
+                          <td height="30">
+                              <a href="data/jar/${jar.hash?default("")}/${jar.name?default("")}">点此下载</a>
+                          </td>
+                      </tr>
+                  </table>
+              <span class="textbtm"></span><span class="textbtmend"></span>
+          </div>
+        
+          <div class="clearit"></div>
+          
+          <div class="tabbed"> <!-- tabbed-->
+              <div id="respond"> <!-- respond -->
+                <h5>class list</h5>
+                <span class="headend"></span>
+                <div class="replycontent" id="class_list">
+        
+        
+                </div>
+                <span class="tail"></span><span class="tailend"></span>
+              </div>      
+          </div>
+          
+        </div>
+
+    </div>
+    
+    <div class="right">
+    
+    </div>
+</div><br />
+<script type="text/javascript" language="javascript" src="include/jquery.livequery.min.js"></script>
+<script type="text/javascript" language="javascript" src="include/dialog/zDialog.js"></script>
+<script type="text/javascript" language="javascript" src="include/dialog/zDrag.js"></script>
+
+<script type="text/javascript" >
+$(function () {
+	$("#class_list").load("data/jar/${jar.hash?default("")}/class_list.html");
+});
+$('.C_list ul li') 
+    .livequery('click', function(event) { 
+        var title = $(this).html().replace('<br>',"");
+		var diag = new Dialog();
+		diag.ID = "show_class_list";
+		diag.Width = 900;
+		diag.Title = title;
+		diag.URL = "data/jar/${jar.hash?default("")}/show/"+title+".html";
+		diag.ShowButtonRow = false;
+		diag.show();
+    });
+
+
+</script>
+<style type="text/css">
+.C_list ul li{ height:28px; cursor:pointer; line-height:28px; font-size:14px;}
+#_DialogTable_show_class_list td{ margin:0px; padding:0px; border:none;}
+.M_list ul li{ list-style:none; list-style-type:none;}
+</style>
+<#include "footer.html">

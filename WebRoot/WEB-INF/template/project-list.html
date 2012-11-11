@@ -1,0 +1,50 @@
+<#include "cp_header.html">
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="2" class="nowtable" height="31" align="center">
+                    <thead>		
+                        <td width="10%">ID</td>
+                        <td>名称</td>
+                        <td width="15%">收录时间</td>
+                        <td width="32%" colspan="4">操作</td>
+                    </thead>
+                   <#list projects as project>
+                        <#if project_index % 2 == 0>
+                        <tr>
+                            <td>${project.id}</td>
+                            <td style="text-align:left">${project.name}</td>
+                            <td>${datetime(project.addtime)}</td>
+                            <td width="8%"><a href="project-edit.do?id=${project.id}">编辑</a></td>
+                            <td width="8%"><a href="project-show.do?id=${project.id}" target="_blank">查看</a></td>
+                            <td width="8%"><a href="project-remove.do?id=${project.id}">移至回收站</a></td>
+                            <td width="8%"><a href="project-delete.do?id=${project.id}">彻底删除</a></td>
+                        </tr>
+                        <#else>
+                        <tr>
+                            <td bgcolor="#f2f2f2">${project.id}</td>
+                            <td bgcolor="#f2f2f2" style="text-align:left">${project.name}</td>
+                            <td bgcolor="#f2f2f2">${datetime(project.addtime)}</td>
+                            <td bgcolor="#f2f2f2"><a href="project-edit.do?id=${project.id}">编辑</a></td>
+                            <td bgcolor="#f2f2f2"><a href="project-show.do?id=${project.id}" target="_blank">查看</a></td>
+                            <td bgcolor="#f2f2f2"><a href="project-remove.do?id=${project.id}">移至回收站</a></td>
+                            <td bgcolor="#f2f2f2"><a href="project-delete.do?id=${project.id}">彻底删除</a></td>
+                        </tr>
+                    	</#if>
+                    </#list>
+        
+				</table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="2" height="31" align="center">
+                	<tr>
+                    	<td height="20"></td>
+                    </tr>
+                	<tr>
+                    	<td>
+                        	<@t.PaginationBar pagination=pagination url="project-list.do" count=6/>
+                        </td>
+                	</tr>
+                </table>
+			</td>
+		</tr>
+	</table>                        
+<#include "cp_footer.html">

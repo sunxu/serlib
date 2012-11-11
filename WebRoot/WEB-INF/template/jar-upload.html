@@ -1,0 +1,117 @@
+<#include "cp_header.html">
+<script type="text/javascript" language="javascript" src="include/dialog/zDialog.js"></script>
+<script type="text/javascript" language="javascript" src="include/dialog/zDrag.js"></script>
+<script type="text/javascript" language="javascript" src="include/plupload/plupload.full.js"></script>
+<script type="text/javascript">
+$(function() {
+	var uploader = new plupload.Uploader({
+		runtimes : 'flash,html5,html4',
+		browse_button : 'pickfiles',
+		container : 'container',
+		max_file_size : '100mb',
+		url : 'include/plupload/jar_upload_json.jsp;jsessionid=${Session["jsessionid"]}',
+		flash_swf_url : 'include/plupload/plupload.flash.swf',
+		filters : [
+			{title : "Jar files", extensions : "jar"}
+		],
+		resize : {width : 320, height : 240, quality : 90},
+		preinit: {
+			FilesAdded: function(up, files) {
+				if(files.length != '1' ){
+					parent.Dialog.alert("请选择单个文件");
+					return false;
+				}
+				up.splice();
+				$('#filelist').empty();
+				$.each(files, function(i, file) {
+					$('#filelist').append(
+						'<div id="' + file.id + '">' +
+						file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' +
+					'</div>');
+				});
+				up.refresh(); // Reposition Flash/Silverlight				
+			},
+			UploadFile: function(up, file) {
+				$('#' + file.id + " b").html("文件上传中…");
+			},
+			
+			FileUploaded: function(up, file, info) {
+				var json = jQuery.parseJSON(info.response);
+				if(json.error == 1){
+					parent.Dialog.alert(json.message);
+					$('#filelist').html("");
+					//up.refresh();
+				}else{
+					$('#container').hide();
+					$('#info').show();
+				}
+			},			
+		}
+	});
+	uploader.bind('Init', function(up, params) {
+		//$('#filelist').html("<div>Current runtime: " + params.runtime + "</div>");
+	});
+	$('#uploadfiles').click(function(e) {
+		uploader.start();
+		e.preventDefault();
+	});
+	uploader.init();
+	uploader.bind('UploadProgress', function(up, file) {
+		$('#' + file.id + " b").html(file.percent + "%");
+	});
+});
+</script>
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+            	<div id="container">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            待上传文件：
+                        </td>
+                        <td width="5%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="75%" height="30" bgcolor="#f2f2f2">
+                            <div id="filelist"></div>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                	<tr>
+                        <td width="50%" height="30" align="right">
+                        	<input value="选择文件" type="button" id="pickfiles">
+                        </td>
+                        <td width="6%" height="30" align="right">&nbsp;</td>
+                        <td width="44%" height="30">
+                        	<input value="上传" type="button" id="uploadfiles">
+                        </td>
+					</tr>
+                </table> 
+				</div>
+            	<div id="info" style="display: none;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                            class="left_txt2">
+                            类库上传成功。
+                        </td>
+                        <td width="35%" bgcolor="#f2f2f2">&nbsp;
+                            
+                        </td>
+                        <td width="45%" height="30" bgcolor="#f2f2f2">
+                            <input type="button" value="添加类库" onclick="self.location='jar-add.do'" />
+                        </td>
+                    </tr>
+                </table>
+				</div>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" height="300">
+                <tr><td>&nbsp;</td></tr>
+                </table>
+            </td>
+        </tr>
+	</table>
+
+<#include "cp_footer.html">

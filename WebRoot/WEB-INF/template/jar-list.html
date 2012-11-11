@@ -1,0 +1,59 @@
+<#include "cp_header.html">
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="2" class="nowtable" height="31" align="center">
+                    <thead>		
+                        <td width="10%">ID</td>
+                        <td>类库名称</td>
+                        <td width="10%">类库大小</td>
+                        <td width="10%">所属项目</td>
+                        <td width="10%">创建时间</td>
+                        <td width="10%">收录时间</td>
+                        <td width="28%" colspan="4">操作</td>
+                    </thead>
+                    <#list jars as jar>
+                        <#if jar_index % 2 == 0>
+                        <tr>
+                            <td>${jar.id}</td>
+                            <td style="text-align:left">${jar.name}</td>
+                            <td>${jar.size}</td>
+                            <td>${jar.project}</td>
+                            <td>${datetime(jar.buildtime)}</td>
+                            <td>${datetime(jar.addtime)}</td>
+                            <td width="7%"><a href="jar-edit.do?id=${jar.id}">编辑</a></td>
+                            <td width="7%"><a href="jar-show.do?id=${jar.id}" target="_blank">查看</a></td>
+                            <td width="7%"><a href="jar-remove.do?id=${jar.id}">移至回收站</a></td>
+                            <td width="7%"><a href="jar-delete.do?id=${jar.id}">彻底删除</a></td>
+                        </tr>
+                        <#else>
+                        <tr>
+                            <td bgcolor="#f2f2f2">${jar.id}</td>
+                            <td bgcolor="#f2f2f2" style="text-align:left">${jar.name}</td>
+                            <td bgcolor="#f2f2f2">${jar.size}</td>
+                            <td bgcolor="#f2f2f2">${jar.project}</td>
+                            <td bgcolor="#f2f2f2">${datetime(jar.buildtime)}</td>
+                            <td bgcolor="#f2f2f2">${datetime(jar.addtime)}</td>
+                            <td bgcolor="#f2f2f2"><a href="jar-edit.do?id=${jar.id}">编辑</a></td>
+                            <td bgcolor="#f2f2f2"><a href="jar-show.do?id=${jar.id}" target="_blank">查看</a></td>
+                            <td bgcolor="#f2f2f2"><a href="jar-remove.do?id=${jar.id}">移至回收站</a></td>
+                            <td bgcolor="#f2f2f2"><a href="jar-delete.do?id=${jar.id}">彻底删除</a></td>
+                        </tr>
+                    	</#if>
+                    </#list>
+        
+				</table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="2" height="31" align="center">
+                	<tr>
+                    	<td height="20"></td>
+                    </tr>
+                	<tr>
+                    	<td>
+                        	<@t.PaginationBar pagination=pagination url="jar-list.do" count=6/>
+                        </td>
+                	</tr>
+                </table>
+			</td>
+		</tr>
+	</table>                        
+<#include "cp_footer.html">

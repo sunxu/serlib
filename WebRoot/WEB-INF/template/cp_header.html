@@ -1,0 +1,97 @@
+<#assign name=stack.findString('com.opensymphony.xwork2.ActionContext.name')>
+<#assign title = "信息提示" >
+<#if name == "siteinfo">
+    <#assign title = "网站信息" >
+</#if>
+<#if name == "jar-upload">
+    <#assign title = "类库上传" >
+</#if>
+<#if name == "jar-add">
+    <#assign title = "类库添加" >
+</#if>
+<#if name == "jar-list">
+    <#assign title = "类库列表" >
+</#if>
+<#if name == "jar-trash">
+    <#assign title = "类库回收站" >
+</#if>
+<#if name == "project-add">
+    <#assign title = "项目添加" >
+</#if>
+<#if name == "project-list">
+    <#assign title = "项目列表" >
+</#if>
+<#if name == "project-trash">
+    <#assign title = "项目回收站" >
+</#if>
+<#if name == "license-add">
+    <#assign title = "协议添加" >
+</#if>
+<#if name == "license-list">
+    <#assign title = "协议列表" >
+</#if>
+<#if name == "license-trash">
+    <#assign title = "协议回收站" >
+</#if>
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>admin_main</title>
+		<link href="skin/css/admin_main.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" language="javascript" src="include/jquery-1.5.min.js"></script>
+        <script type="text/javascript" language="javascript">
+			if (top.location == self.location) {top.location="admin.do";}
+		</script>
+        <script type="text/javascript" language="javascript" src="include/dialog/zDialog.js"></script>
+		<script type="text/javascript" language="javascript" src="include/dialog/zDrag.js"></script>
+
+	</head>
+	<body>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="17" valign="top" background="skin/images/mail_leftbg.gif">
+					<img src="skin/images/left-top-right.gif" width="17" height="29" />
+				</td>
+				<td valign="top" background="skin/images/content-bg.gif">
+					<table width="100%" height="31" border="0" cellpadding="0"
+						cellspacing="0" class="left_topbg" id="table2">
+						<tr>
+							<td height="31">
+								<div class="titlebt">
+									${title}
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td width="16" valign="top"
+					background="skin/images/mail_rightbg.gif">
+					<img src="skin/images/nav-right-bg.gif" width="16" height="29" />
+				</td>
+			</tr>
+			<tr>
+				<td valign="middle" background="skin/images/mail_leftbg.gif">&nbsp;
+					
+				</td>
+				<td valign="top" bgcolor="#F7F8F9">
+					<table width="98%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td colspan="2" valign="top">&nbsp;
+								
+							</td>
+							<td>&nbsp;
+								
+							</td>
+							<td valign="top">&nbsp;
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4" valign="top">
+								

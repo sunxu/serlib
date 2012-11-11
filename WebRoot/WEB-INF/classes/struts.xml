@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="serlib-default" extends="struts-default" abstract="true">
+		<result-types>
+			<result-type name="freemarker" class="org.apache.struts2.views.freemarker.FreemarkerResult" default="true"/>
+		</result-types>
+		<interceptors>
+			<interceptor name="LoginInterceptor" class="com.serlib.common.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="CheckLoginStack">
+			 	<interceptor-ref name="LoginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+	        <result name="error">error.html</result>
+ 		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="error" />
+				<exception-mapping result="error" exception="freemarker.core.InvalidReferenceException"></exception-mapping>
+		</global-exception-mappings>
+	</package>
+
+	<package name="admin-manage" extends="serlib-default" abstract="true">
+		<default-interceptor-ref name="CheckLoginStack"/>
+		<global-results>
+			<result name="login" type="redirectAction">login</result>
+		</global-results>
+	</package>
+	
+	<package name="admin-log" extends="serlib-default">
+		<action name="login" class="adminAction" method="login">
+			<result name="success" type="redirectAction">admin</result>
+			<result name="input">login.html</result>
+		</action>
+		<action name="logout" class="adminAction" method="logout">
+			<result name="success" type="redirectAction">index</result>
+		</action>
+	</package>
+
+	<package name="admin-panel" extends="admin-manage">
+		<action name="admin" class="null">
+			<result>admin.html</result>
+		</action>
+		<action name="admin-top" class="null">
+			<result>admin-top.html</result>
+		</action>
+		<action name="admin-left" class="null">
+			<result>admin-left.html</result>
+		</action>
+		<action name="siteinfo" class="null">
+			<result>siteinfo.html</result>
+		</action>		
+	</package>
+	
+	<package name="license-manage" extends="admin-manage">
+		<action name="license-list" class="licenseAction" method="list">
+			<param name="isTrash">false</param>
+			<result>license-list.html</result>
+		</action>
+		<action name="license-add" class="licenseAction" method="add">
+			<result name="input">license-edit.html</result>
+			<result>message.html</result>
+		</action>
+		<action name="license-edit" class="licenseAction" method="edit">
+			<result name="add" type="redirectAction">license-add</result>
+			<result name="edit">license-edit.html</result>
+			<result>message.html</result>
+		</action>
+		<action name="license-trash" class="licenseAction" method="list">
+			<param name="isTrash">true</param>
+			<result>license-trash.html</result>
+		</action>
+		<action name="license-remove" class="licenseAction" method="remove">
+			<result>message.html</result>
+		</action>
+		<action name="license-recover" class="licenseAction" method="recover">
+			<result>message.html</result>
+		</action>				
+		<action name="license-delete" class="licenseAction" method="delete">
+			<result>message.html</result>
+		</action>		
+	</package>
+
+	<package name="project-manage" extends="admin-manage">
+		<action name="project-list" class="projectAction" method="list">
+			<param name="isTrash">false</param>
+			<result>project-list.html</result>
+		</action>
+		<action name="project-add" class="projectAction" method="add">
+			<result name="input">project-edit.html</result>
+			<result>message.html</result>
+		</action>
+		<action name="project-edit" class="projectAction" method="edit">
+			<param name="isTrash">false</param>
+			<result name="add" type="redirectAction">project-add</result>
+			<result name="edit">project-edit.html</result>
+			<result>message.html</result>
+		</action>
+		<action name="project-trash" class="projectAction" method="list">
+			<param name="isTrash">true</param>
+			<result>project-trash.html</result>
+		</action>
+		<action name="project-remove" class="projectAction" method="remove">
+			<result>message.html</result>
+		</action>
+		<action name="project-recover" class="projectAction" method="recover">
+			<result>message.html</result>
+		</action>				
+		<action name="project-delete" class="projectAction" method="delete">
+			<result>message.html</result>
+		</action>
+	</package>
+
+	<package name="jar-manage" extends="admin-manage">
+		<action name="jar-list" class="jarAction" method="list">
+			<param name="isTrash">false</param>
+			<result>jar-list.html</result>
+		</action>
+		<action name="jar-edit" class="jarAction" method="edit">
+			<param name="isTrash">false</param>
+			<result name="add" type="redirectAction">jar-add</result>
+			<result name="edit">jar-edit.html</result>
+			<result>message.html</result>
+		</action>
+		<action name="jar-trash" class="jarAction" method="list">
+			<param name="isTrash">true</param>
+			<result>jar-trash.html</result>
+		</action>
+		<action name="jar-remove" class="jarAction" method="remove">
+			<result>message.html</result>
+		</action>
+		<action name="jar-recover" class="jarAction" method="recover">
+			<result>message.html</result>
+		</action>				
+	</package>
+
+	<package name="jar-deal" extends="admin-manage">
+		<interceptors>
+			<interceptor name="JarDealInterceptor" class="com.serlib.common.interceptor.JarDealInterceptor"></interceptor>
+			<interceptor-stack name="JarDealStack">
+			 	<interceptor-ref name="CheckLoginStack"></interceptor-ref>
+				<interceptor-ref name="JarDealInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="JarDealStack"></default-interceptor-ref>
+		<global-results>
+			<result name="upload" type="redirectAction">jar-upload</result>
+			<result name="add" type="redirectAction">jar-add</result>
+			<result name="extract" type="redirectAction">jar-extract</result>
+			<result name="generate" type="redirectAction">jar-generate</result>
+			<result name="index" type="redirectAction">jar-index</result>
+			<result name="success">message.html</result>
+		</global-results>
+		<action name="jar-upload" class="jarAnalyzeAction">
+			<result name="success">jar-upload.html</result>
+		</action>
+		<action name="jar-add" class="jarAnalyzeAction" method="add">
+			<result name="input">jar-edit.html</result>
+			<result>message.html</result>
+		</action>		
+		<action name="jar-extract" class="jarAnalyzeAction" method="extract" />
+		<action name="jar-generate" class="jarAnalyzeAction" method="generate" />
+		<action name="jar-index" class="jarAnalyzeAction" method="index" />
+		<action name="jar-delete" class="jarAnalyzeAction" method="delete" />
+	</package>
+	
+	<package name="search" extends="serlib-default">
+		<action name="search" class="searchAction" method="search">
+			<result>search.html</result>
+			<result name="list">search-list.html</result>
+		</action>
+	
+		<action name="debug" class="null">
+			<result name="success" type="dispatcher">debug.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="home" extends="serlib-default">
+		<action name="index" class="null">
+			<result name="success">search.html</result>
+		</action>
+		<action name="license-show" class="licenseAction" method="show">
+			<result>license-show.html</result>
+		</action>		
+		<action name="project-show" class="projectAction" method="show">
+			<result>project-show.html</result>
+		</action>		
+		<action name="jar-show" class="jarAction" method="show">
+			<result>jar-show.html</result>
+		</action>
+	</package>
+	
+</struts>    

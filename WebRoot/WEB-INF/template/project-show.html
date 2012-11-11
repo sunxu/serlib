@@ -1,0 +1,74 @@
+<#include "header.html">
+<div class="mainstuff">
+	<div class="left">	
+        <div class="post"> 
+        
+          <h2 class="posttop">
+            <a title="${project.name?default("")}" href="javascript:void();">${project.name?default("")}</a>
+          </h2>
+          
+          <div class="showinfo">
+              <span class="texttop"></span><span class="texttopend"></span>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content">
+                      <tr>
+                          <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                              class="left_txt2">
+                              项目名称：
+                          </td>
+                          <td width="75%" height="30" bgcolor="#f2f2f2" class="left_txt2">
+                              ${project.name?default("")}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td height="30" align="right" class="left_txt2">
+                              项目主页：
+                          </td>
+                          <td height="30">
+                              ${project.home?default("")}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td width="20%" height="30" align="right" bgcolor="#f2f2f2"
+                              class="left_txt2">
+                              所属公司：
+                          </td>
+                          <td width="75%" height="30" bgcolor="#f2f2f2" class="left_txt2">
+                              ${project.company?default("")}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td height="30" align="right" class="left_txt2">
+                              所用协议：
+                          </td>
+                          <td height="30">
+                              <a href="license-show.do?id=${project.licenseId?default("")}">${project.license?default("")}</a>
+                          </td>
+                      </tr>
+                  </table>
+              <span class="textbtm"></span><span class="textbtmend"></span>
+          </div>
+        
+          <div class="clearit"></div>
+          
+          <div class="tabbed"> <!-- tabbed-->
+              <div id="respond"> <!-- respond -->
+                <h5>项目简介</h5>
+                <span class="headend"></span>
+                <div class="replycontent" id="class_list">
+        		${project.detail?default("")}
+                </div>
+                <span class="tail"></span><span class="tailend"></span>
+              </div>      
+          </div>
+          
+        </div>
+
+    </div>
+    
+    <div class="right">
+    
+    </div>
+</div>
+<script type="text/javascript" >
+</script>
+<#include "footer.html">

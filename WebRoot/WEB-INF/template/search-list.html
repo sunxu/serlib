@@ -1,0 +1,93 @@
+<#include "header.html">
+<div class="mainstuff">
+
+    <div id="show_search_box">
+        <DIV class=search_kuang>
+           <FORM action="search.do" method="post">            
+            <DIV id=search_left></DIV>
+            <input name="text" type="text" class="search_text" id="search_text" value="${text?default("")}" onfocus="if (this.value == '在此输入搜索词...') {this.value = '';}" onblur="if (this.value == '') {this.value = '在此输入搜索词...';}" />
+            <div id="search_select" class="search_text">
+                <select name="id" id="search_type">
+                  <option value="1" <#if id == 1>selected="selected"</#if>>方法</option>
+                  <option value="2" <#if id == 2>selected="selected"</#if>>类</option>
+                  <option value="3" <#if id == 3>selected="selected"</#if>>类库</option>
+                </select>  
+            </div>
+            <INPUT src="skin/images/search_sub.png" type=image class="search_button" >
+          </FORM>
+        </DIV>
+    </div>
+		
+<#if id == 1> <!-- METHOD -->
+    <#list solrDocumentList as doc>
+        <div class="post"> 
+            <h2 class="posttop">
+                <a href="jar-show.do?id=${doc.getFieldValue("jarid")}">${doc.getFieldValue("jar")}</a>
+            </h2>
+            <div class="realstuff">
+            
+            <#assign methodList=doc.getFieldValue("method")?replace("[", "")?replace("]", "")?replace(" ", "")>
+            <#list methodList?split(",") as method>
+                <#if method?starts_with(text)>
+                <p>${method}</p>
+                </#if>
+            </#list>          
+            </div>
+        </div>
+	</#list>
+</#if>
+
+<#if id == 2><!-- CLASS --> 
+    <#list solrDocumentList as doc>
+        <div class="post"> 
+            <h2 class="posttop">
+                <a href="jar-show.do?id=${doc.getFieldValue("jarid")}">${doc.getFieldValue("jar")}</a>
+            </h2>
+            <div class="realstuff">
+
+            <#assign classList=doc.getFieldValue("class")?replace("[", "")?replace("]", "")?replace(" ", "")>
+            <#list classList?split(",") as class>
+                <#if class?starts_with(text)>
+                <p>${class}</p>
+                </#if>
+            </#list>          
+            </div>
+        </div>
+	</#list>
+</#if>
+
+<#if id == 3><!-- JAR --> 
+    <#list solrDocumentList as doc>
+        <div class="post"> 
+            <h2 class="posttop">
+                <a href="jar-show.do?id=${doc.getFieldValue("jarid")}">${doc.getFieldValue("jar")}</a>
+            </h2>
+        </div>
+	</#list>
+</#if>
+
+<@t.PaginationBar pagination=pagination url="search.do?id="+id?default("1")+"&text="+text?default("") count=6/>
+
+</div>
+
+<script src="include/jquery-1.3.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" language="javascript" src="include/CRselectBox.js"></script>
+<link href="skin/css/selectBox.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" >
+$(function () {
+	$("#search_type").CRselectBox();	
+	$("#search_text").focus(function () {		
+		$(".CRselectBox").css({
+			"border-color":"#ff7700","border-style":"solid","border-width":"1px","background":"#fff0d4 url(skin/images/select_box_on.gif) no-repeat right center"
+		});
+		$(".CRselectValue").css({"color":"#b96821"});
+	}).blur(function () {
+		$(".CRselectBox").css({
+			"border-color":"#7c7c7c","border-style":"solid","border-width":"1px","background":"#f4f4f4 url(skin/images/select_box_off.gif) no-repeat right center"
+		});
+		$(".CRselectValue").css({"color":"#666666"});
+	});
+})
+</script>
+
+<#include "footer.html"> 

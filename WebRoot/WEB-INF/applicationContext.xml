@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/serlib?characterEncoding=UTF-8">
+		</property>
+		<property name="user" value="root"></property>
+		<property name="password" value="root"></property>
+		<property name="autoCommitOnClose" value="true" />
+		<property name="checkoutTimeout" value="1000" />
+		<property name="initialPoolSize" value="20" />
+		<property name="minPoolSize" value="20" />
+		<property name="maxPoolSize" value="100" />
+		<property name="maxIdleTime" value="7200" />
+		<property name="acquireIncrement" value="10" />
+		<property name="maxIdleTimeExcessConnections" value="1800" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingLocations">
+			<list>
+				<value>classpath:com/serlib/entity/*.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<import resource="classpath:daoBean.xml"/>
+	<import resource="classpath:serviceBean.xml"/>
+	<import resource="classpath:actionBean.xml"/>	
+</beans>
